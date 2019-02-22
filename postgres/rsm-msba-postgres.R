@@ -4,7 +4,8 @@ con <- dbConnect(
   dbDriver("PostgreSQL"),
   user = "jovyan",
   # host = Sys.info()['nodename'],  ## from docker container on both server and laptop
-  host = "127.0.0.1",           ## from local Rstudio (non-docker setup)
+  # host = "127.0.0.1",           ## from local Rstudio (non-docker setup)
+  host = "localhost",           ## from local Rstudio (non-docker setup)
   port = 5432,
   dbname = "rsm-docker",
   password = "postgres"
