@@ -18,8 +18,7 @@ RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "neve
   -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
 
 ## packages in development
-RUN R -e 'remotes::install_github("PMassicotte/gtrendsR@da29cf4e427b6bf33d5925ce82596d9c33f9656c", upgrade = "never")' \
-  -e 'remotes::install_github("tidymodels/tidymodels")'
+RUN R -e 'remotes::install_github("PMassicotte/gtrendsR@da29cf4e427b6bf33d5925ce82596d9c33f9656c", upgrade = "never")'
 
 ## install lightGBM
 RUN git clone --recursive https://github.com/Microsoft/LightGBM \

@@ -99,7 +99,6 @@ Pygments==2.3.1
 pyodbc==4.0.25
 pyparsing==2.3.0
 PySocks==1.6.8
-pystan==2.18.1.0
 python-apt==1.6.3
 python-dateutil==2.7.5
 python-debian==0.1.33
