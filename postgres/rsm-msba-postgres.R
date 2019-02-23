@@ -3,26 +3,31 @@ library(RPostgreSQL)
 con <- dbConnect(
   dbDriver("PostgreSQL"),
   user = "jovyan",
-  # host = Sys.info()['nodename'],  ## from docker container on both server and laptop
-  # host = "127.0.0.1",           ## from local Rstudio (non-docker setup)
-  host = "localhost",           ## from local Rstudio (non-docker setup)
-  port = 5432,
+  host = "127.0.0.1",
+  port = 8765,
   dbname = "rsm-docker",
   password = "postgres"
 )
 
 library(dplyr)
-db_tabs <- dbListTables(con)
-db_tabs
 
+## show list of tables
+dbListTables(con)
+
+## add a table to the dbase
 if (!"mtcars" %in% db_tabs) {
   copy_to(con, mtcars, "mtcars", temporary = FALSE)
 }
 
+## extra data from dbase connection
 dat <- tbl(con, "mtcars")
 dat
 
-
+## show updated list of tables
 dbListTables(con)
-db_drop_table(con, table='mtcars')
+
+## drop a table
+db_drop_table(con, table = 'mtcars')
+
+## show updated list of tables
 dbListTables(con)

@@ -34,20 +34,23 @@ RUN pip3 install -r /home/${NB_USER}/requirements.txt \
 #  && rm -rf jupyterlab-variableInspector
 
 ## install the typescript kernel
-# RUN npm --unsafe-perm install -g itypescript \
-#  && its --ts-install=global
+RUN npm --unsafe-perm install -g itypescript \
+  && its --ts-install=global
 
 ## install the javascript kernel
 RUN npm --unsafe-perm install -g ijavascript \
   && ijsinstall --install=global
 
-## update radiant to development version
-#RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
+## update R-packages
+RUN R -e 'radiant.update::radiant.update()'
 
-EXPOSE 8080 8787 8989
+## update radiant to development version
+RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
+
+EXPOSE 8080 8787 8989 8765
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

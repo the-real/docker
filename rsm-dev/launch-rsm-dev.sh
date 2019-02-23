@@ -369,10 +369,10 @@ else
       fi
     elif [ ${startup} == 4 ]; then
       if [ "${port}" == "" ]; then
-        port=5432
+        port=8765
       else
-        echo "Currently postgres can only run on port 5432"
-        port=5432
+        echo "Currently postgres can only run on port 8765"
+        port=8765
       fi
       if [ ! -d "${HOMEDIR}/postgresql/data" ]; then
         mkdir -p "${HOMEDIR}/postgresql/data"
@@ -380,7 +380,7 @@ else
       pg_running=$(docker ps --filter "name=postgres" -q)
       if [ "${pg_running}" == "" ]; then
         echo "Starting postgres on port ${port}"
-        docker run --net ${LABEL} -p ${port}:5432 \
+        docker run --net ${LABEL} -p ${port}:8765 \
           --name postgres \
           -e POSTGRES_USER=${POSTGRES_USER} \
           -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \

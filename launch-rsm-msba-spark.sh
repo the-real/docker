@@ -279,7 +279,7 @@ else
   fi
   {
     docker run --net ${NETWORK} -d \
-      -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 5432:5432 \
+      -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 8765:8765 \
       -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
       -v ${HOMEDIR}:/home/${NB_USER} \
       -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
@@ -424,7 +424,7 @@ else
       fi
 
       docker run --net ${NETWORK} -d \
-        -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 5432:5432 \
+        -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 8765:8765 \
         -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
         -v ${HOMEDIR}:/home/${NB_USER} \
         -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \

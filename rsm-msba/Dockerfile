@@ -49,11 +49,11 @@ COPY images/logo200.svg /opt/radiant/logo.svg
 RUN R -e 'radiant.update::radiant.update()'
 
 ## update radiant to development version
-#RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
-#  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
+RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
+  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
 
 RUN pip3 install jupyter-rsession-proxy \
   && jupyter labextension install jupyterlab-server-proxy \
@@ -89,13 +89,11 @@ RUN /etc/init.d/postgresql start \
 COPY postgresql.conf /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 COPY pg_hba.conf /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
 USER root
 
 ## updating the supervisord.conf file for Jupyter
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 80 8787 8989 5432
+EXPOSE 8080 8787 8989 8765
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.5'
 services:
   rsm-msba-spark:
     image: "vnijs/rsm-dev"
@@ -14,17 +14,11 @@ services:
       - 8080:8080
       - 8787:8787
       - 8989:8989
+      - 8765:8765
     volumes:
       - ~:/home/jovyan
+      - pg_data:/var/lib/postgresql/10/main
 
-  postgres:
-    image: postgres:10.6
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /var/lib/postgresql/data
-    ports:
-      - 5432:5432
-    restart: always
-    volumes:
-       - ~/postgresql/data:/var/lib/postgresql/data
+volumes:
+  pg_data:
+    external: true

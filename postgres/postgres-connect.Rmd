@@ -17,8 +17,8 @@ library(RPostgreSQL)
 con <- dbConnect(
   dbDriver("PostgreSQL"),
   user = "jovyan", 
-  host = "127.0.0.1", ## use when connection to postgres from local Rstudio
-  port = 5432,
+  host = "127.0.0.1",
+  port = 8765,
   dbname = "rsm-docker",
   password = "postgres"
   ## can use the line below in interactive sessions
