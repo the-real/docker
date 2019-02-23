@@ -12,7 +12,8 @@ con <- dbConnect(
 library(dplyr)
 
 ## show list of tables
-dbListTables(con)
+db_tabs <- dbListTables(con)
+db_tabs
 
 ## add a table to the dbase
 if (!"mtcars" %in% db_tabs) {

@@ -54,6 +54,9 @@ Note that this is a fairly large file that we are copying into the database so m
 
 ```{r}
 ## only push to db if table does not yet exist
+## Note: This step requires you have a reasonable amount of memory accessible 
+## for docker. This can be changed in Docker > Preferences > Advanced 
+## Memory should be set to > 4GB
 if (!"flights" %in% db_tabs) {
   copy_to(con, nycflights13::flights, "flights",
     temporary = FALSE,
