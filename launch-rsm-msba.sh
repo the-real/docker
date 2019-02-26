@@ -279,7 +279,7 @@ else
   fi
   {
     docker run --net ${NETWORK} -d \
-      -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 8765:8765 \
+      -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 127.0.0.1:8765:8765 \
       -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
       -v ${HOMEDIR}:/home/${NB_USER} \
       -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
@@ -359,7 +359,7 @@ else
       else
         echo "Starting Radiant in the default browser on port ${port}"
         docker run --net ${NETWORK} -d \
-          -p ${port}:8080 \
+          -p 127.0.0.1:${port}:8080 \
           -v ${HOMEDIR}:/home/${NB_USER} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
           ${IMAGE}:${IMAGE_VERSION}
@@ -374,7 +374,7 @@ else
         rstudio_abend
         echo "Starting Rstudio in the default browser on port ${port}"
         docker run --net ${NETWORK} -d \
-          -p ${port}:8787 \
+          -p 127.0.0.1:${port}:8787 \
           -e RPASSWORD=${RPASSWORD} \
           -v ${HOMEDIR}:/home/${NB_USER} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
@@ -390,7 +390,7 @@ else
       else
         echo "Starting Jupyter Lab in the default browser on port ${port}"
         docker run --net ${NETWORK} -d \
-          -p ${port}:8989 \
+          -p 127.0.0.1:${port}:8989 \
           -e JPASSWORD=${JPASSWORD} \
           -v ${HOMEDIR}:/home/${NB_USER} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
@@ -424,7 +424,7 @@ else
       fi
 
       docker run --net ${NETWORK} -d \
-        -p 8080:8080 -p 8787:8787 -p 8989:8989 -p 8765:8765 \
+        -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 127.0.0.1:8765:8765 \
         -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
         -v ${HOMEDIR}:/home/${NB_USER} \
         -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \

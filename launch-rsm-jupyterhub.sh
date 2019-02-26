@@ -268,7 +268,7 @@ else
     docker volume create --name=pg_data
   fi
 
-  docker run --rm -p 8888:8888 -p 8765:8765 \
+  docker run --rm -p 127.0.0.1:8888:8888 -p 127.0.0.1:8765:8765 \
     -e NB_USER=0 -e NB_UID=1002 -e NB_GID=1002 \
     -v ${HOMEDIR}:/home/${NB_USER} \
     -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \

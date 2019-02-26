@@ -256,7 +256,7 @@ else
   fi
 
   {
-    docker run --net ${NETWORK} -d -p 8080:8080 -p 8787:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
+    docker run --net ${NETWORK} -d -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
   } || {
     echo "-----------------------------------------------------------------------"
     echo "It seems there was a problem starting the docker container. Please"
@@ -329,7 +329,7 @@ else
         open_browser http://localhost:8080
       else
         echo "Starting shiny-apps in the default browser on port ${port}"
-        docker run --net ${NETWORK} -d -p ${port}:8080 -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
+        docker run --net ${NETWORK} -d -p 127.0.0.1:${port}:8080 -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
         sleep 2s
         open_browser http://localhost:${port}
       fi
@@ -340,7 +340,7 @@ else
       else
         rstudio_abend
         echo "Starting Rstudio in the default browser on port ${port}"
-        docker run --net ${NETWORK} -d -p ${port}:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
+        docker run --net ${NETWORK} -d -p 127.0.0.1:${port}:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${IMAGE_VERSION}
         sleep 2s
         open_browser http://localhost:${port}
       fi
@@ -368,7 +368,7 @@ else
       if [ "${has_network}" == "" ]; then
         docker network create ${NETWORK}  # default options are fine
       fi
-      docker run --net ${NETWORK} -d -p 8080:8080 -p 8787:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${VERSION}
+      docker run --net ${NETWORK} -d -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -e RPASSWORD=${RPASSWORD} -v ${HOMEDIR}:/home/${NB_USER} ${IMAGE}:${VERSION}
       echo "-----------------------------------------------------------------------"
     elif [ ${startup} == 4 ]; then
       echo "Updating ${ID}/${LABEL} launch script"
