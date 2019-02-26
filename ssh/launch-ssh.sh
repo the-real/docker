@@ -54,10 +54,10 @@ fi
 
 ## make connection to host running docker trough ssh
 ssh -M -S .tmp-ssh-info -fnNT \
-  -L 8080:localhost:8080 \
-  -L 8787:localhost:8787 \
-  -L 8989:localhost:8989 \
-  -L 8765:localhost:8765 \
+  -L 127.0.0.1:8080:localhost:8080 \
+  -L 127.0.0.1:8787:localhost:8787 \
+  -L 127.0.0.1:8989:localhost:8989 \
+  -L 127.0.0.1:8765:localhost:8765 \
   ${UHOST}
 
 show_service () {
