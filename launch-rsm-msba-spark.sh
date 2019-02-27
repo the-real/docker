@@ -279,7 +279,7 @@ else
   fi
   {
     docker run --net ${NETWORK} -d \
-      -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 8765:8765 \
+      -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 127.0.0.1:8765:8765 \
       -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
       -v ${HOMEDIR}:/home/${NB_USER} \
       -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
