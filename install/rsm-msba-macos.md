@@ -78,7 +78,7 @@ cp -p ~/git/docker/launch-rsm-msba.sh ~/Desktop/launch-rsm-msba.command;
 
 ## Connecting to postgresql
 
-The rsm-msba container comes with [postgresql](http://www.postgresqltutorial.com/){target="_blank") installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
+The rsm-msba container comes with [postgresql](http://www.postgresqltutorial.com/){target="_blank"} installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
 
 ```r
 ## connect to database
@@ -97,7 +97,7 @@ con <- dbConnect(
 dbListTables(con)
 ```
 
-For a more extensive example using R see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.md>{target="_blank"}
+For a more extensive example using R see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.md>
 
 To access posgresql from Jupyter Lab using the code below:
 
@@ -110,7 +110,7 @@ engine = create_engine('postgresql://jovyan:postgres@127.0.0.1:8765/rsm-docker')
 engine.table_names()
 ```
 
-For a more extensive example using python see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.ipynb>{target="_blank"}
+For a more extensive example using python see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.ipynb>
 
 ## Extended functionality with Apache Spark
 
