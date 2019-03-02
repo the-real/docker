@@ -43,7 +43,9 @@ There is no is no need to "View Release Notes" on the last screen but do "Launch
 
 <img src="figures/git-bash.jpg" width="500px">
 
-**Step4**: Open a bash terminal and copy-and-paste the code below to add `rsync` functionality. Note: You may have to right-click to get a copy-and-paste menu for the terminal
+**Step4**: Open a bash terminal **as adminstrator** and copy-and-paste the code below to add `rsync` functionality. Note: You may have to right-click to get a copy-and-paste menu for the terminal
+
+> Note: To open git bash as administrator find the app in the Start Menu, right click on the icon, and select 'Run as administrator'.
 
 ```bash
 curl http://www2.futureware.at/~nickoe/msys2-mirror/msys/x86_64/rsync-3.1.2-2-x86_64.pkg.tar.xz -o rsync.pkg.tar.xz;
