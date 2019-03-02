@@ -9,7 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Start the `rsm-msba` or `rsm-msba-spark` computing container. In the menu that appears, press 4 + Enter to start the postgres server. You can connect to the database using the code chunk below.
+Start the `rsm-msba` or `rsm-msba-spark` computing container to also start postgresql. You can connect to the database using the code chunk below.
 
 ```{r}
 library(DBI)
@@ -26,7 +26,7 @@ con <- dbConnect(
 )
 ```
 
-Is there anything in the data base? If this is not the first time you are  running this Rmarkdown file the database should be available already (i.e., the code chunk below should show "flights" as an existing table)
+Is there anything in the data base? If this is not the first time you are running this Rmarkdown file the database should be available already (i.e., the code chunk below should show "flights" as an existing table)
 
 ```{r}
 library(dplyr)
@@ -34,7 +34,7 @@ db_tabs <- dbListTables(con)
 db_tabs
 ```
 
-If the database is empty, lets start with the example at https://db.rstudio.com/dplyr/ and work through the following 6 steps:
+If the database is empty, lets start with the example at <https://db.rstudio.com/dplyr/>{target="_blank"} and work through the following 6 steps:
 
 ### 1. install the nycflights13 package if not already available
 

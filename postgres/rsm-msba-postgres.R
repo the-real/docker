@@ -9,13 +9,12 @@ con <- dbConnect(
   password = "postgres"
 )
 
-library(dplyr)
-
 ## show list of tables
 db_tabs <- dbListTables(con)
 db_tabs
 
 ## add a table to the dbase
+library(dplyr)
 if (!"mtcars" %in% db_tabs) {
   copy_to(con, mtcars, "mtcars", temporary = FALSE)
 }

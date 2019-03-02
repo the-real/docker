@@ -7,7 +7,7 @@ output:
 
 
 
-Start the `rsm-msba` or `rsm-msba-spark` computing container. In the menu that appears, press 4 + Enter to start the postgres server. You can connect to the database using the code chunk below.
+Start the `rsm-msba` or `rsm-msba-spark` computing container to also start postgresql. You can connect to the database using the code chunk below.
 
 
 ```r
@@ -25,7 +25,7 @@ con <- dbConnect(
 )
 ```
 
-Is there anything in the data base? If this is not the first time you are  running this Rmarkdown file the database should be available already (i.e., the code chunk below should show "flights" as an existing table)
+Is there anything in the data base? If this is not the first time you are running this Rmarkdown file the database should be available already (i.e., the code chunk below should show "flights" as an existing table)
 
 
 ```r
@@ -55,10 +55,10 @@ db_tabs
 ```
 
 ```
-## [1] "mtcars"  "flights"
+## [1] "flights" "mtcars"  "films"
 ```
 
-If the database is empty, lets start with the example at https://db.rstudio.com/dplyr/ and work through the following 6 steps:
+If the database is empty, lets start with the example at <https://db.rstudio.com/dplyr/>{target="_blank"} and work through the following 6 steps:
 
 ### 1. install the nycflights13 package if not already available
 
@@ -119,16 +119,16 @@ flights_db %>% select(year:day, dep_delay, arr_delay)
 ## # Database: postgres 10.6.0 [jovyan@127.0.0.1:8765/rsm-docker]
 ##     year month   day dep_delay arr_delay
 ##    <int> <int> <int>     <dbl>     <dbl>
-##  1  2013     1     3        -7       -27
-##  2  2013     1     3        -6        13
-##  3  2013     1     3        -5       -43
-##  4  2013     1     3        -4         3
-##  5  2013     1     3        -5         4
-##  6  2013     1     3        -5         6
-##  7  2013     1     3        -4       -35
-##  8  2013     1     3        -2        22
-##  9  2013     1     3        -2        12
-## 10  2013     1     3        -2        -2
+##  1  2013     1     1         2        11
+##  2  2013     1     1         4        20
+##  3  2013     1     1         2        33
+##  4  2013     1     1        -1       -18
+##  5  2013     1     1        -6       -25
+##  6  2013     1     1        -4        12
+##  7  2013     1     1        -5        19
+##  8  2013     1     1        -3       -14
+##  9  2013     1     1        -3        -8
+## 10  2013     1     1        -2         8
 ## # … with more rows
 ```
 
@@ -141,16 +141,16 @@ flights_db %>% filter(dep_delay > 240)
 ## # Database: postgres 10.6.0 [jovyan@127.0.0.1:8765/rsm-docker]
 ##     year month   day dep_time sched_dep_time dep_delay arr_time
 ##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
-##  1  2013     1     3     2008           1540       268     2339
-##  2  2013     1     3     2012           1600       252     2314
-##  3  2013     1     3     2056           1605       291     2239
-##  4  2013     1     4     2123           1635       288     2332
-##  5  2013     1     5     1232            815       257     1405
-##  6  2013     1     5     1344            817       327     1635
-##  7  2013     1     7     1323            830       293     1604
-##  8  2013     1     7     2021           1415       366     2332
-##  9  2013     1     9      641            900      1301     1242
-## 10  2013     1     9     2223           1810       253      111
+##  1  2013     1     1      848           1835       853     1001
+##  2  2013     1     1     1815           1325       290     2120
+##  3  2013     1     1     1842           1422       260     1958
+##  4  2013     1     1     2115           1700       255     2330
+##  5  2013     1     1     2205           1720       285       46
+##  6  2013     1     1     2343           1724       379      314
+##  7  2013     1     2     1332            904       268     1616
+##  8  2013     1     2     1412            838       334     1710
+##  9  2013     1     2     1607           1030       337     2003
+## 10  2013     1     2     2131           1512       379     2340
 ## # … with more rows, and 12 more variables: sched_arr_time <int>,
 ## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 ## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
@@ -238,8 +238,8 @@ tailnum_delay_db %>% show_query()
 ## FROM (SELECT *
 ## FROM (SELECT "tailnum", AVG("arr_delay") AS "delay", COUNT(*) AS "n"
 ## FROM "flights"
-## GROUP BY "tailnum") "qlaibqtckx"
-## ORDER BY "delay" DESC) "zsjsruhvmf"
+## GROUP BY "tailnum") "cdavsxvwuq"
+## ORDER BY "delay" DESC) "rdsideantf"
 ## WHERE ("n" > 100.0)
 ```
 
@@ -301,15 +301,15 @@ Table: Displaying records 1 - 10
 
  year   month   day   dep_time   sched_dep_time   dep_delay   arr_time   sched_arr_time   arr_delay  carrier    flight  tailnum   origin   dest    air_time   distance   hour   minute  time_hour           
 -----  ------  ----  ---------  ---------------  ----------  ---------  ---------------  ----------  --------  -------  --------  -------  -----  ---------  ---------  -----  -------  --------------------
+ 2013       1     4       2358             2359          -1        429              437          -8  B6            727  N599JB    JFK      BQN          189       1576     23       59  2013-01-04 20:00:00 
+ 2013       1     4       2358             2359          -1        436              445          -9  B6            739  N821JB    JFK      PSE          199       1617     23       59  2013-01-04 20:00:00 
+ 2013       1     5       2355             2359          -4        425              442         -17  B6            707  N583JB    JFK      SJU          193       1598     23       59  2013-01-05 20:00:00 
+ 2013       1     5       2357             2359          -2        432              437          -5  B6            727  N649JB    JFK      BQN          195       1576     23       59  2013-01-05 20:00:00 
+ 2013       1     6       2353             2359          -6        441              445          -4  B6            739  N583JB    JFK      PSE          207       1617     23       59  2013-01-06 20:00:00 
+ 2013       1     6       2355             2359          -4        433              437          -4  B6            727  N708JB    JFK      BQN          199       1576     23       59  2013-01-06 20:00:00 
+ 2013       1     7       2359             2359           0        506              437          29  B6            727  N805JB    JFK      BQN          196       1576     23       59  2013-01-07 20:00:00 
+ 2013       1     8       2351             2359          -8        414              437         -23  B6            727  N563JB    JFK      BQN          185       1576     23       59  2013-01-08 20:00:00 
+ 2013       1     8       2351             2359          -8        417              444         -27  B6            739  N592JB    JFK      PSE          190       1617     23       59  2013-01-08 20:00:00 
  2013       1    12       2359             2359           0        429              437          -8  B6            727  N509JB    JFK      BQN          185       1576     23       59  2013-01-12 20:00:00 
- 2013       1    13       2354             2250          64        100             2359          61  B6            608  N334JB    JFK      PWM           42        273     22       50  2013-01-13 19:00:00 
- 2013       1    13       2358             2045         193        233             2310         203  B6            115  N239JB    JFK      MSY          187       1182     20       45  2013-01-13 17:00:00 
- 2013       1    13       2359             2130         149        435              218         137  B6            701  N337JB    JFK      SJU          189       1598     21       30  2013-01-13 18:00:00 
- 2013       1    14       2353             2359          -6        429              444         -15  B6            739  N775JB    JFK      PSE          193       1617     23       59  2013-01-14 20:00:00 
- 2013       1    15       2356             2359          -3        439              444          -5  B6            739  N547JB    JFK      PSE          202       1617     23       59  2013-01-15 20:00:00 
- 2013       1    16       2356             2359          -3        453              444           9  B6            739  N703JB    JFK      PSE          216       1617     23       59  2013-01-16 20:00:00 
- 2013       1    16       2358             2359          -1        502              437          25  B6            727  N509JB    JFK      BQN          215       1576     23       59  2013-01-16 20:00:00 
- 2013       1    17       2352             2359          -7        448              444           4  B6            739  N629JB    JFK      PSE          217       1617     23       59  2013-01-17 20:00:00 
- 2013       1    18       2352             2359          -7        432              444         -12  B6            739  N526JB    JFK      PSE          200       1617     23       59  2013-01-18 20:00:00 
 
 </div>

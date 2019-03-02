@@ -1,6 +1,7 @@
 # Contents
   - [Installing the RSM-MSBA computing environment on Windows](#installing-the-rsm-msba-computing-environment-on-windows) 
   - [Updating the RSM-MSBA computing environment on Windows](#updating-the-rsm-msba-computing-environment-on-windows) 
+  - [Connecting to postgresql](#connecting-to-postgresql)
   - [Extended functionality with Apache Spark](#extended-functionality-with-apache-spark)
   - [Installing R and Python packages locally](#installing-r-and-python-packages-locally)
   - [Trouble shooting](#trouble-shooting)
@@ -81,6 +82,8 @@ As mentioned above, for Rstudio the username and password are both "rstudio". Fo
 
 <img src="figures/rsm-jupyter.png" width="500px">
 
+
+
 ## Updating the RSM-MSBA computing environment on Windows
 
 To update the container use the launch script and press 4 (+ enter). To update the launch script itself, press 5 (+ enter).
@@ -95,6 +98,41 @@ rm -rf C:/Users/$USERNAME/git/docker;
 git clone https://github.com/radiant-rstats/docker.git C:/Users/$USERNAME/git/docker;
 cp -p C:/Users/$USERNAME/git/docker/launch-rsm-msba.sh C:/Users/$USERNAME/Desktop;
 ```
+## Connecting to postgresql
+
+The rsm-msba container comes with [postgresql](http://www.postgresqltutorial.com/){target="_blank") installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
+
+```r
+## connect to database
+library(DBI)
+library(RPostgreSQL)
+con <- dbConnect(
+  dbDriver("PostgreSQL"),
+  user = "jovyan",
+  host = "127.0.0.1",
+  port = 8765,
+  dbname = "rsm-docker",
+  password = "postgres"
+)
+
+## show list of tables
+dbListTables(con)
+```
+
+For a more extensive example using R see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.md>{target="_blank"}
+
+To access posgresql from Jupyter Lab using the code below:
+
+```py
+## connect to database
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://jovyan:postgres@127.0.0.1:8765/rsm-docker')
+
+## show list of tables
+engine.table_names()
+```
+
+For a more extensive example using python see: <https://github.com/radiant-rstats/docker/blob/master/postgres/postgres-connect.ipynb>{target="_blank"}
 
 ## Extended functionality with Apache Spark
 
