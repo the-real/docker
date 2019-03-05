@@ -1,6 +1,6 @@
 git pull
 docker login
-DOCKERHUB_VERSION=1.3.6
+DOCKERHUB_VERSION=1.3.7
 UPLOAD="NO"
 UPLOAD="YES"
 
@@ -44,6 +44,15 @@ launcher () {
     sed_fun "s/$2/$3/" ./launch-${LABEL}.sh
   fi
 }
+
+LABEL=rsm-msba-spark
+build
+launcher "rsm-msba"
+
+LABEL=rsm-jupyterhub
+build
+
+exit 1
 
 LABEL=r-bionic
 build
