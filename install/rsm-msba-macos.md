@@ -4,6 +4,7 @@
   - [Connecting to postgresql](#connecting-to-postgresql)
   - [Extended functionality with Apache Spark](#extended-functionality-with-apache-spark)
   - [Installing R and Python packages locally](#installing-r-and-python-packages-locally)
+  - [Cleanup](#cleanup)
   - [Trouble shooting](#trouble-shooting)
 
 ## Installing the RSM-MSBA computing environment on macOS
@@ -136,6 +137,15 @@ To install R packages that will persist after restarting the docker container en
 `install.packages("fortunes", lib = Sys.getenv("R_LIBS_USER"))`
 
 To remove locally installed python packages press 7 + Enter in the docker launcher menu. To remove locally installed R packages press 6 + Enter in the docker launcher menu.  
+
+## Cleanup
+
+You should always stop the `rsm-msba` or `rsm-msba-spark` docker container by typing `q + Enter` in the docker menu. If you want a full cleanup and reset of the docker setup on your system, however, exectute the following commands from a (bash) terminal to (1) remove all docker images, networks, and (data) volumes, and (2) 'pull' only the docker image you need (e.g., rsm-msba-spark):
+
+```bash
+docker system prune --all --volumes --force;
+docker pull vnijs/rsm-msba-spark;
+```
 
 ## Trouble shooting
 
