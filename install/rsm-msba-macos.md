@@ -140,9 +140,13 @@ To remove locally installed python packages press 7 + Enter in the docker launch
 
 ## Cleanup
 
-You should always stop the `rsm-msba` or `rsm-msba-spark` docker container by typing `q + Enter` in the docker menu. If you want a full cleanup and reset of the docker setup on your system, however, exectute the following commands from a (bash) terminal to (1) remove all docker images, networks, and (data) volumes, and (2) 'pull' only the docker image you need (e.g., rsm-msba-spark):
+To remove any prior Rstudio sessions, and locally installed R-packages, press 6 + Enter in the docker launcher menu. To remove locally installed python packages press 7 + Enter in the docker launcher menu. 
+
+You should always stop the `rsm-msba` or `rsm-msba-spark` docker container using `q + Enter` in the docker menu. If you want a full cleanup and reset of the docker setup on your system, however, exectute the following commands from a (bash) terminal to (1) remove prior R(studio) and python settings, (2) remove all docker images, networks, and (data) volumes, and (3) 'pull' only the docker image you need (e.g., rsm-msba-spark):
 
 ```bash
+rm -rf ~/.rstudio
+rm -rf ~/.rsm-msba
 docker system prune --all --volumes --force;
 docker pull vnijs/rsm-msba-spark;
 ```
