@@ -128,6 +128,7 @@ else
     sed_fun () {
       sed -i $1 $2
     }
+    MNT="-v /media:/media"
   elif [[ "$ostype" == "Darwin" ]]; then
     ostype="macOS"
     HOMEDIR=~
@@ -137,6 +138,7 @@ else
     sed_fun () {
       sed -i '' -e $1 $2
     }
+    MNT="-v /Volumes:/media/Volumes"
   else
     ostype="Windows"
     HOMEDIR="C:/Users/$USERNAME"
@@ -146,6 +148,7 @@ else
     sed_fun () {
       sed -i $1 $2
     }
+    MNT=""
   fi
 
   ## change mapping of docker home directory to local directory if specified
@@ -281,7 +284,7 @@ else
     docker run --net ${NETWORK} -d \
       -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 127.0.0.1:8765:8765 \
       -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
-      -v ${HOMEDIR}:/home/${NB_USER} \
+      -v ${HOMEDIR}:/home/${NB_USER} ${MNT} \
       -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
       ${IMAGE}:${IMAGE_VERSION}
   } || {
@@ -360,7 +363,7 @@ else
         echo "Starting Radiant in the default browser on port ${port}"
         docker run --net ${NETWORK} -d \
           -p 127.0.0.1:${port}:8080 \
-          -v ${HOMEDIR}:/home/${NB_USER} \
+          -v ${HOMEDIR}:/home/${NB_USER} ${MNT} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
           ${IMAGE}:${IMAGE_VERSION}
         sleep 2s
@@ -376,7 +379,7 @@ else
         docker run --net ${NETWORK} -d \
           -p 127.0.0.1:${port}:8787 \
           -e RPASSWORD=${RPASSWORD} \
-          -v ${HOMEDIR}:/home/${NB_USER} \
+          -v ${HOMEDIR}:/home/${NB_USER} ${MNT} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
           ${IMAGE}:${IMAGE_VERSION}
         sleep 2s
@@ -392,7 +395,7 @@ else
         docker run --net ${NETWORK} -d \
           -p 127.0.0.1:${port}:8989 \
           -e JPASSWORD=${JPASSWORD} \
-          -v ${HOMEDIR}:/home/${NB_USER} \
+          -v ${HOMEDIR}:/home/${NB_USER} ${MNT} \
           -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
           ${IMAGE}:${IMAGE_VERSION}
         sleep 5s
@@ -426,7 +429,7 @@ else
       docker run --net ${NETWORK} -d \
         -p 127.0.0.1:8080:8080 -p 127.0.0.1:8787:8787 -p 127.0.0.1:8989:8989 -p 127.0.0.1:8765:8765 \
         -e RPASSWORD=${RPASSWORD} -e JPASSWORD=${JPASSWORD} \
-        -v ${HOMEDIR}:/home/${NB_USER} \
+        -v ${HOMEDIR}:/home/${NB_USER} ${MNT} \
         -v pg_data:/var/lib/postgresql/${POSTGRES_VERSION}/main \
         ${IMAGE}:${IMAGE_VERSION}
 
