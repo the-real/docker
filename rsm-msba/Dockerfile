@@ -91,6 +91,10 @@ COPY pg_hba.conf /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
 USER root
 
+## Adding a "clean up" script
+COPY clean.sh /usr/local/bin/clean
+RUN chmod +x /usr/local/bin/clean
+
 ## updating the supervisord.conf file for Jupyter
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

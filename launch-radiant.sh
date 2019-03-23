@@ -279,7 +279,7 @@ else
       touch ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
       sed_fun '/^alwaysSaveHistory="[0-1]"/d' ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
       sed_fun '/^loadRData="[0-1]"/d' ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
-      sed_fun '/^saveAction="[0-1]"/d' ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
+      sed_fun '/^saveAction=/d' ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
       echo 'alwaysSaveHistory="1"' >> ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
       echo 'loadRData="0"' >> ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
       echo 'saveAction="0"' >> ${HOMEDIR}/.rstudio/monitored/user-settings/user-settings
@@ -387,11 +387,27 @@ else
       ${SCRIPT_DOWNLOAD}/launch-${LABEL}.${EXT}
       exit 1
     elif [ ${startup} == 5 ]; then
-      echo "Removing old Rstudio sessions and locally installed R packages from the .rsm-msba directory"
-      rm -rf ${HOMEDIR}/.rstudio/sessions
-      rm -rf ${HOMEDIR}/.rsm-msba/R
-      rm -rf ${HOMEDIR}/.rstudio/projects
-      rm -rf ${HOMEDIR}/.rstudio/projects_settings
+      echo "-----------------------------------------------------"
+      echo "Clean up Rstudio sessions (y/n)?"
+      echo "-----------------------------------------------------"
+      read cleanup
+
+      if [ "${cleanup}" == "y" ]; then
+        echo "Cleaning up Rstudio sessions and settings"
+        rm -rf ${HOMEDIR}/.rstudio/sessions
+        rm -rf ${HOMEDIR}/.rstudio/projects
+        rm -rf ${HOMEDIR}/.rstudio/projects_settings
+      fi
+
+      echo "-----------------------------------------------------"
+      echo "Remove locally installed R packages (y/n)?"
+      echo "-----------------------------------------------------"
+      read cleanup
+
+      if [ "${cleanup}" == "y" ]; then
+        echo "Removing locally installed R packages"
+        rm -rf ${HOMEDIR}/.rsm-msba/R
+      fi
     elif [ "${startup}" == "q" ]; then
       echo "-----------------------------------------------------------------------"
       echo "Stopping the ${LABEL} computing container and cleaning up as needed"

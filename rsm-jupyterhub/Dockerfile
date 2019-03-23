@@ -26,6 +26,7 @@ COPY jupyter_notebook_config.py /etc/jupyter/
 RUN chmod +x /usr/local/bin/start.sh && \
   chmod +x /usr/local/bin/start-notebook.sh && \
   chmod +x /usr/local/bin/start-singleuser.sh && \
+  chmod +x /usr/local/bin/clean &&\
   chmod +x /usr/local/bin/fix-permissions
 
 ## Create NB_USER user with UID=1000 and in the 'users' group
@@ -68,6 +69,5 @@ ENV JUPYTER_ENABLE_LAB=1
 
 ENTRYPOINT ["/tini", "-g", "--"]
 CMD ["start-notebook.sh"]
-
 
 USER ${NB_USER}
