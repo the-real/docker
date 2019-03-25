@@ -475,9 +475,10 @@ else
       echo "Removing locally installed Python packages"
       rm -rf ${HOMEDIR}/.rsm-msba/bin
       rm -rf ${HOMEDIR}/.rsm-msba/lib
-      cd ${HOMEDIR}/.rsm-msba/share
-      ls | grep -v jupyter | xargs rm -rf 2>/dev/null
-      cd -
+      rm_list=$(ls ${HOMEDIR}/.rsm-msba/share | grep -v jupyter)
+      for i in ${rm_list}; do
+         rm -rf ${HOMEDIR}/.rsm-msba/share/${i}
+      done
     elif [ "${startup}" == "q" ]; then
       echo "-----------------------------------------------------------------------"
       echo "Stopping the ${LABEL} computing container and cleaning up as needed"

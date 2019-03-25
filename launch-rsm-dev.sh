@@ -232,7 +232,10 @@ else
         rm -rf ${ARG_HOME}/.rsm-msba/R
         rm -rf ${ARG_HOME}/.rsm-msba/bin
         rm -rf ${ARG_HOME}/.rsm-msba/lib
-        rm -rf ${ARG_HOME}/.rsm-msba/share
+        rm_list=$(ls ${ARG_HOME}/.rsm-msba/share | grep -v jupyter)
+        for i in ${rm_list}; do
+           rm -rf ${ARG_HOME}/.rsm-msba/share/${i}
+        done
       }
     fi
     SCRIPT_HOME="$(script_home)"
@@ -456,7 +459,10 @@ else
       echo "Removing locally installed Python packages from the .rsm-msba directory"
       rm -rf ${HOMEDIR}/.rsm-msba/bin
       rm -rf ${HOMEDIR}/.rsm-msba/lib
-      rm -rf ${HOMEDIR}/.rsm-msba/share
+      rm_list=$(ls ${HOMEDIR}/.rsm-msba/share | grep -v jupyter)
+      for i in ${rm_list}; do
+         rm -rf ${HOMEDIR}/.rsm-msba/share/${i}
+      done
     elif [ "${startup}" == "q" ]; then
       echo "-----------------------------------------------------------------------"
       echo "Stopping the ${LABEL} computing container and cleaning up as needed"
