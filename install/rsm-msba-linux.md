@@ -67,7 +67,7 @@ To update the container use the launch script and press 4 (+ enter). To update t
 
 <img src="figures/rsm-msba-menu-linux.png" width="500px">
 
-If for some reason you are having trouble updating either the container or the launch script open a terminal and copy-and-paste the code below. These commands will update the docker container, replace the old docker related scripts, and copy the latest version of the launch script to your Desktop.W
+If for some reason you are having trouble updating either the container or the launch script open a terminal and copy-and-paste the code below. These commands will update the docker container, replace the old docker related scripts, and copy the latest version of the launch script to your Desktop.
 
 ```bash
 docker pull vnijs/rsm-msba;
@@ -78,7 +78,7 @@ cp -p ~/git/docker/launch-rsm-msba.sh ~/Desktop;
 
 ## Connecting to postgresql
 
-The rsm-msba container comes with [postgresql](http://www.postgresqltutorial.com/){target="_blank"} installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
+The rsm-msba container comes with <a href="http://www.postgresqltutorial.com" target="_blank">postgresql</a> installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
 
 ```r
 ## connect to database

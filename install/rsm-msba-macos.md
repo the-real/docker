@@ -79,7 +79,7 @@ cp -p ~/git/docker/launch-rsm-msba.sh ~/Desktop/launch-rsm-msba.command;
 
 ## Connecting to postgresql
 
-The rsm-msba container comes with [postgresql](http://www.postgresqltutorial.com/){target="_blank"} installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
+The rsm-msba container comes with <a href="http://www.postgresqltutorial.com" target="_blank">postgresql</a> installed. Once the container has been started, you can access posgresql from Rstudio using the code below:
 
 ```r
 ## connect to database
