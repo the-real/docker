@@ -38,6 +38,8 @@ RUN groupadd wheel -g 11 && \
   fix-permissions /opt && \
   fix-permissions /var/lib/shiny-server && \
   fix-permissions /var/log/shiny-server && \
+  fix-permissions /var/log/rstudio-server && \
+  fix-permissions /var/lib/rstudio-server && \
   fix-permissions /var/lib/postgresql
 
 ## update R-packages
