@@ -34,12 +34,12 @@ RUN pip3 install -r /home/${NB_USER}/requirements.txt \
 #  && rm -rf jupyterlab-variableInspector
 
 ## install the typescript kernel
-RUN npm --unsafe-perm install -g itypescript \
-  && its --ts-install=global
+# RUN npm --unsafe-perm install -g itypescript \
+#  && its --ts-install=global
 
 ## install the javascript kernel
-RUN npm --unsafe-perm install -g ijavascript \
-  && ijsinstall --install=global
+# RUN npm --unsafe-perm install -g ijavascript \
+#  && ijsinstall --install=global
 
 ## update R-packages
 RUN R -e 'radiant.update::radiant.update()'
@@ -50,6 +50,38 @@ RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "neve
   -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
   -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
   -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
+
+#ARG CODESRV=1.32.0-310
+#RUN wget https://github.com/codercom/code-server/releases/download/${CODESRV}/code-server-${CODESRV}-linux-x64.tar.gz \
+#  && tar -xzf code-server-${CODESRV}-linux-x64.tar.gz \
+#  && mv code-server-${CODESRV}-linux-x64/code-server /usr/local/bin \
+#  && rm -rf code-server-${CODESRV}-linux-x64*
+
+# COPY jupyter_notebook_config.py /etc/jupyter/
+# EXPOSE 8080 8787 8989 8765 8443
+
+# RUN jupyter labextension install @jupyterlab/monaco
+# RUN git clone https://github.com/jupyterlab/jupyterlab-monaco.git \
+#  && cd jupyterlab-monaco/ \
+#  && npm install \
+#  && npm run build \
+#  && jupyter labextension link .
+
+RUN cd /opt \
+  && mkdir /opt/code-server \
+  && cd /opt/code-server \
+  && wget -qO- https://github.com/codercom/code-server/releases/download/1.32.0-245/code-server-1.32.0-245-linux-x64.tar.gz | tar zxvf - --strip-components=1
+
+ENV PATH=/opt/code-server:$PATH
+
+RUN pip3 install git+https://github.com/dirkcgrunwald/jupyter_codeserver_proxy-.git
+RUN pip3 install pylint
+
+# RUN pip3 install jupyter_codeserver_proxy
+# RUN git clone https://github.com/dirkcgrunwald/jupyter_codeserver_proxy- \
+#  && cd jupyter_codeserver_proxy- \
+#  && pip3 install
+
 
 EXPOSE 8080 8787 8989 8765
 
