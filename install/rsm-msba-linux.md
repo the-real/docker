@@ -16,6 +16,7 @@ Important: You *must* complete the installation before our first class session o
 **Step 1**: Install docker on Ubuntu 18.04 run the following code in a terminal and provide your (sudo) password when requested: 
 
 ```bash
+sudo apt install curl
 source <(curl -s https://raw.githubusercontent.com/radiant-rstats/docker/master/install/install-docker.sh)
 ```
 
