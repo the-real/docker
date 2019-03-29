@@ -27,6 +27,9 @@ c.MappingKernelManager.cull_idle_timeout = 30 * 60
 # check for idle kernels every two minutes
 c.MappingKernelManager.cull_interval = 2 * 60
 
+# custom start url
+c.NotebookApp.custom_display_url = 'http://127.0.0.1:' + str(c.NotebookApp.port)
+
 ## based on @yuvipanda's comments https://github.com/yuvipanda/jupyter-launcher-shortcuts/issues/1
 def _get_shiny_cmd(port):
     conf = textwrap.dedent("""
