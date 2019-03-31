@@ -90,3 +90,5 @@ if 'GEN_CERT' in os.environ:
     # Restrict access to the file
     os.chmod(pem_file, stat.S_IRUSR | stat.S_IWUSR)
     c.NotebookApp.certfile = pem_file
+    
+os.environ["PYTHONUSERBASE"] = "~/.rsm-msba"
