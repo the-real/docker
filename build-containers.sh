@@ -1,6 +1,6 @@
 git pull
 docker login
-DOCKERHUB_VERSION=1.4.1
+DOCKERHUB_VERSION=1.4.2
 UPLOAD="NO"
 UPLOAD="YES"
 
