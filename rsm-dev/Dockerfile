@@ -45,11 +45,11 @@ RUN pip3 install -r /home/${NB_USER}/requirements.txt \
 RUN R -e 'radiant.update::radiant.update()'
 
 ## update radiant to development version
-RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
-  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
-  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
-  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
-  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
+# RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "never")' \
+#  -e 'remotes::install_github("radiant-rstats/radiant.basics", upgrade = "never")' \
+#  -e 'remotes::install_github("radiant-rstats/radiant.design", upgrade = "never")' \
+#  -e 'remotes::install_github("radiant-rstats/radiant.model", upgrade = "never")' \
+#  -e 'remotes::install_github("radiant-rstats/radiant.multivariate", upgrade = "never")'
 
 #ARG CODESRV=1.32.0-310
 #RUN wget https://github.com/codercom/code-server/releases/download/${CODESRV}/code-server-${CODESRV}-linux-x64.tar.gz \
@@ -67,21 +67,26 @@ RUN R -e 'remotes::install_github("radiant-rstats/radiant.data", upgrade = "neve
 #  && npm run build \
 #  && jupyter labextension link .
 
+ENV CODE_USER_DATA_DIR="~/.rsm-msba/share/code-server"
+ENV CODE_EXTENSIONS_DIR="~/.rsm-msba/share/code-server/extensions"
+
 RUN cd /opt \
   && mkdir /opt/code-server \
   && cd /opt/code-server \
-  && wget -qO- https://github.com/codercom/code-server/releases/download/1.32.0-245/code-server-1.32.0-245-linux-x64.tar.gz | tar zxvf - --strip-components=1
+  && wget -qO- https://github.com/codercom/code-server/releases/download/1.604-vsc1.32.0/code-server1.604-vsc1.32.0-linux-x64.tar.gz | tar zxvf - --strip-components=1
 
 ENV PATH=/opt/code-server:$PATH
 
-RUN pip3 install git+https://github.com/dirkcgrunwald/jupyter_codeserver_proxy-.git
-RUN pip3 install pylint
+#RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+# RUN echo "fs.inotify.max_user_watches=8192" >> /etc/sysctl.conf \
+# RUN sysctl -w fs.inotify.max_user_watches=12288
+# && sysctl -p
 
-# RUN pip3 install jupyter_codeserver_proxy
-# RUN git clone https://github.com/dirkcgrunwald/jupyter_codeserver_proxy- \
-#  && cd jupyter_codeserver_proxy- \
-#  && pip3 install
+RUN pip3 install git+https://github.com/vnijs/jupyter_codeserver_proxy.git pylint
 
+## gives error sysctl: setting key "fs.inotify.max_user_watches": Read-only file system
+RUN echo "fs.inotify.max_user_watches=8192" >> /etc/sysctl.conf \
+  && sysctl -p
 
 EXPOSE 8080 8787 8989 8765
 
