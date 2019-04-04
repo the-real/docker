@@ -48,7 +48,7 @@ def _get_shiny_cmd(port):
 c.ServerProxy.servers = {
     'radiant': {
         'command': _get_shiny_cmd,
-        'timeout': 10,
+        'timeout': 20,
         'launcher_entry': {
             'title': 'Radiant',
             'icon_path': '/opt/radiant/logo.svg'

@@ -60,7 +60,7 @@ def _get_shiny_cmd(port):
 c.ServerProxy.servers = {
     'radiant': {
         'command': _get_shiny_cmd,
-        'timeout': 10,
+        'timeout': 20,
         'launcher_entry': {
             'title': 'Radiant',
             'icon_path': '/opt/radiant/logo.svg'
@@ -90,5 +90,5 @@ if 'GEN_CERT' in os.environ:
     # Restrict access to the file
     os.chmod(pem_file, stat.S_IRUSR | stat.S_IWUSR)
     c.NotebookApp.certfile = pem_file
-    
+
 os.environ["PYTHONUSERBASE"] = "~/.rsm-msba"
