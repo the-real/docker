@@ -85,9 +85,10 @@ ENV PATH=/opt/code-server:$PATH
 RUN pip3 install git+https://github.com/vnijs/jupyter_codeserver_proxy.git pylint
 
 ## gives error sysctl: setting key "fs.inotify.max_user_watches": Read-only file system
-RUN echo "fs.inotify.max_user_watches=8192" >> /etc/sysctl.conf \
-  && sysctl -p
+#RUN echo "fs.inotify.max_user_watches=8192" >> /etc/sysctl.conf && sysctl -p
+#RUN sysctl -w fs.inotify.max_user_watches=8192
 
 EXPOSE 8080 8787 8989 8765
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT [ "sh", "-c", "sysctl -w fs.inotify.max_user_watches=8192 && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf" ]
