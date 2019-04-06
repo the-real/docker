@@ -264,6 +264,7 @@ else
   echo "Starting the ${LABEL} computing container on ${ostype}"
   echo "Version   : ${DOCKERHUB_VERSION}"
   echo "Build date: ${BUILD_DATE//T*/}"
+  echo "Base dir. : ${HOMEDIR}"
   echo "-----------------------------------------------------------------------"
 
   has_volume=$(docker volume ls | awk "/pg_data/" | awk '{print $2}')

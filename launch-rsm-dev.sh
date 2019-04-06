@@ -269,6 +269,7 @@ else
   echo "Starting the ${LABEL} computing container on ${ostype}"
   echo "Version   : ${DOCKERHUB_VERSION}"
   echo "Build date: ${BUILD_DATE//T*/}"
+  echo "Base dir. : ${HOMEDIR}"
   echo "-----------------------------------------------------------------------"
 
   ## based on https://stackoverflow.com/a/52852871/1974918
